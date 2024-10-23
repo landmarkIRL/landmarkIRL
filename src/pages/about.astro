@@ -1,34 +1,20 @@
 ---
-const pageTitle = "About Me";
+import BaseLayout from '../layouts/BaseLayout.astro';
+const pageTitle = "About";
 ---
-
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{pageTitle}</title>
-	</head>
-	<body>
-        <a href="/">Home</a>
-        <a href="/about/">About</a>
-        <a href="/blog/">Blog</a>
-
-		<h1>{pageTitle}</h1>
-        <p>
-            <b>
-            This is a chronicle of the lives of my former classmates from Landmark University and the cool things they’re doing after graduation. Your daily reminder that life moves fast. You’re welcome.
-            </b>
-        </p>
-        <p>
-            My circle leans heavily towards those in tech and other interesting fields. Most of them are going to do big things. You’ll read about them here first.
-        </p>
-        <p>
-            If you want to be featured or know someone who should, please email me. You can find it on my <a href="https://davidumoru.me">website.</a>
-        </p>
-        <p>
-            If you enjoy my writing, follow me on Twitter <a href="https://x.com/thedavidumoru">@thedavidumoru.</a>
-        </p>
-	</body>
-</html>
+<BaseLayout pageTitle={pageTitle}>
+    <p>
+        <b>
+        This is a chronicle of the lives of my former classmates from Landmark University and the cool things they’re doing after graduation. Your daily reminder that life moves fast. You’re welcome.
+        </b>
+    </p>
+    <p>
+        My circle leans heavily towards those in tech and other interesting fields. Most of them are going to do big things. You’ll read about them here first.
+    </p>
+    <p>
+        If you want to be featured or know someone who should, please email me. You can find it on my <a href="https://davidumoru.me">website.</a>
+    </p>
+    <p>
+        If you enjoy my writing, follow me on Twitter <a href="https://x.com/thedavidumoru">@thedavidumoru.</a>
+    </p>
+</BaseLayout>

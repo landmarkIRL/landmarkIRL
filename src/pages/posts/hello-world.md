@@ -5,6 +5,7 @@ description: 'Welcome to Landmark in Real Life'
 author: 'David Umoru'
 image: ''
 tags: ["hello world"]
+layout: ../../layouts/MarkdownPostLayout.astro
 ---
 
 Hello World
