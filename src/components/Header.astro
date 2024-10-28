@@ -1,12 +1,36 @@
 ---
 import Navigation from './Navigation.astro';
 import Hamburger from './Hamburger.astro';
-import ThemeIcon from './ThemeIcon.astro';
 ---
 <header>
   <nav>
-    <Hamburger />
-    <ThemeIcon />
-    <Navigation />
+    <div class="logo-container">
+      <a href="/"><img src="/logo.png" alt="Landmark University Logo" /></a>
+    </div>
+    <div class="nav-items">
+      <Hamburger />
+      <Navigation />
+    </div>
   </nav>
 </header>
+
+<style>
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+  }
+
+  .logo-container img {
+    height: 50px;
+    width: auto;
+    padding: 1em;
+  }
+
+  .nav-items {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+</style>

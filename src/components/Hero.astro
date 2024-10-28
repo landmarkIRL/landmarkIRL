@@ -1,0 +1,21 @@
+---
+const { image, isHomePage } = Astro.props;
+---
+
+<div
+  class={`hero ${isHomePage ? "hero-home" : "hero-other"}`}
+  style={`background-image: url('${image}');`}
+>
+  {
+    isHomePage && (
+      <div class="hero-content">
+        <h1>Landmark In Real Life</h1>
+        <p>
+          This is a chronicle of the lives of my former classmates and the
+          amazing things they do after Landmark. Your daily dose of existential
+          crisis. You're welcome.
+        </p>
+      </div>
+    )
+  }
+</div>

@@ -1,18 +1,9 @@
-html {
-  background-color: #f1f5f9;
-  font-family: sans-serif;
+:root {
+  font-family: Inter, sans-serif;
+  font-feature-settings: 'liga' 1, 'calt' 1;
 }
-
-body {
-  margin: 0 auto;
-  width: 100%;
-  max-width: 80ch;
-  padding: 1rem;
-  line-height: 1.5;
-}
-
-* {
-  box-sizing: border-box;
+@supports (font-variation-settings: normal) {
+  :root { font-family: InterVariable, sans-serif; }
 }
 
 h1 {
@@ -20,7 +11,86 @@ h1 {
   font-size: 2.5rem;
 }
 
+ul {
+  list-style:none;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Inter', sans-serif;
+}
+
+.hero {
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+}
+
+.hero-home {
+  height: 100vh; /* Fullscreen height for the homepage */
+}
+
+.hero-other {
+  height: 60vh; /* Smaller height for other pages */
+}
+
+.hero-content {
+  z-index: 1;
+}
+
+.hero h1 {
+  font-size: 3.5em;
+  margin: 0 0 0.3em;
+  padding: 0;
+}
+
+.hero p {
+  font-size: 1.3em;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: bold;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 636px) {
+  .hero h1 {
+    font-size: 1.7em;
+  }
+  .hero p {
+    font-size: 1.1em;
+    max-width: 300px;
+  }
+  .hero-home {
+    height: 50vh;
+  }
+  .hero-other {
+    height: 30vh;
+  }
+}
+
+.content-container {
+  max-width: 80ch;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  line-height: 1.6;
+}
+
 /* nav styles */
+
+header {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+}
 
 .hamburger {
   padding-right: 20px;
@@ -29,34 +99,32 @@ h1 {
 
 .hamburger .line {
   display: block;
-  width: 40px;
-  height: 5px;
-  margin-bottom: 10px;
-  background-color: #ff9776;
+  width: 30px;
+  height: 3px;
+  margin-bottom: 6px;
+  background-color: #fff;
 }
 
 .nav-links {
   width: 100%;
   top: 5rem;
   left: 48px;
-  background-color: #ff9776;
   display: none;
   margin: 0;
 }
 
 .nav-links a {
+  color: #fff;
   display: block;
   text-align: center;
   padding: 10px 0;
   text-decoration: none;
   font-size: 1.2rem;
-  font-weight: bold;
-  text-transform: uppercase;
 }
 
 .nav-links a:hover,
 .nav-links a:focus {
-  background-color: #ff9776;
+  color: #D2D987;
 }
 
 .expanded {
@@ -69,7 +137,6 @@ h1 {
     display: block;
     position: static;
     width: auto;
-    background: none;
   }
 
   .nav-links a {
@@ -80,13 +147,4 @@ h1 {
   .hamburger {
     display: none;
   }
-}
-
-html.dark {
-  background-color: #0d0950;
-  color: #fff;
-}
-
-.dark .nav-links a {
-  color: #fff;
 }

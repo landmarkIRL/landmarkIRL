@@ -1,22 +1,33 @@
 ---
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import '../styles/global.css';
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import Subscribe from "../components/Subscribe.astro";
+import "../styles/global.css";
+
 const { pageTitle } = Astro.props;
+const isHomePage = pageTitle === "LandmarkIRL";
 ---
+
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://rsms.me/" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>{pageTitle}</title>
   </head>
   <body>
     <Header />
-    <h1>{pageTitle}</h1>
-    <slot />
-    <Footer />
+    <Hero
+      image={isHomePage ? "/landmarkuni.jpg" : "/senate.jpg"}
+      isHomePage={isHomePage}
+    />
+    <main class="content-container">
+      <slot />
+      <Subscribe />
+    </main>
     <script>
       import "../scripts/menu.js";
     </script>
