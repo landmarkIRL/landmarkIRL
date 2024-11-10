@@ -54,9 +54,10 @@ body, html {
 }
 
 .hero p {
-  font-size: 1.3em;
-  font-family: 'Times New Roman', Times, serif;
-  font-weight: bold;
+  font-family: "Merriweather", serif;font-weight: 300;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 1.2rem;
   max-width: 800px;
   margin: 0 auto;
 }
@@ -66,8 +67,8 @@ body, html {
     font-size: 1.7em;
   }
   .hero p {
-    font-size: 1.1em;
-    max-width: 300px;
+    font-size: 1.1rem;
+    max-width: 350px;
   }
   .hero-home {
     height: 50vh;

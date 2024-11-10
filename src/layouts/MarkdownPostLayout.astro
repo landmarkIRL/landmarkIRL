@@ -4,42 +4,121 @@ const { frontmatter } = Astro.props;
 ---
 
 <BaseLayout pageTitle={frontmatter.title}>
-  <p><em>{frontmatter.description}</em></p>
-  <p>{frontmatter.pubDate.toString().slice(0, 10)}</p>
-
-  <p>Written by: {frontmatter.author}</p>
-
-  <!-- <img src={frontmatter.image.url} width="300" alt={frontmatter.image.alt} /> -->
-
-  <div class="tags">
-    {
-      frontmatter.tags.map((tag) => (
-        <p class="tag">
-          <a href={`/tags/${tag}`}>{tag}</a>
-        </p>
-      ))
-    }
+  <h1 class="title">{frontmatter.title}</h1>
+  <p id="subtitle">{frontmatter.description}</p>
+  <div class="meta">
+    <span class="tags">
+      {
+        frontmatter.tags.map((tag, index) => (
+          <span>
+            <a href={`/tags/${tag}`} class="tag">
+              {tag}
+            </a>
+            {index < frontmatter.tags.length - 1 && ", "}
+          </span>
+        ))
+      }
+    </span>
+    <span> -- </span>
+    <span class="date"
+      >{
+        new Date(frontmatter.pubDate).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })
+      }</span
+    >
   </div>
-
-  <slot />
+  <div class="content">
+    <slot />
+  </div>
 </BaseLayout>
 <style>
-  a {
-    color: #00539f;
+  .meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #ddd;
+  }
+  #subtitle {
+    font-family: "Merriweather", serif;
+    font-weight: 300;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1rem;
+    letter-spacing: 0.01rem;
+    color: #3a4145;
+  }
+  .content {
+    font-family: "Merriweather", serif;
+    font-weight: 300;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 1.15rem;
+    letter-spacing: 0.01rem;
+    color: #3a4145;
+  }
+  .title {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #333;
     text-decoration: none;
   }
-
+  .meta {
+    font-size: 1.05rem;
+    color: #999;
+    margin-top: 1rem;
+  }
   .tags {
-    display: flex;
-    flex-wrap: wrap;
+    font-style: italic;
+  }
+  .tags .tag {
+    color: #d2d987;
+    text-decoration: none;
+  }
+  .tags .tag:hover {
+    text-decoration: underline;
+  }
+  .date {
+    font-weight: 500;
   }
 
-  .tag {
-    margin: 0.25em;
-    border: dotted 1px #a1a1a1;
-    border-radius: 0.5em;
-    padding: 0.25em 0.5em;
-    font-size: 1em;
-    background-color: #f8fcfd;
+  /* Media Queries for scaling text down */
+  @media (max-width: 1200px) {
+    #subtitle {
+      font-size: 0.9rem;
+    }
+    .content {
+      font-size: 1.1rem;
+    }
+    .title {
+      font-size: 2rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    #subtitle {
+      font-size: 0.9rem;
+    }
+    .content {
+      font-size: 1.05rem;
+    }
+    .title {
+      font-size: 1.9rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    #subtitle {
+      font-size: 0.9rem;
+    }
+    .content {
+      font-size: 1rem;
+    }
+    .title {
+      font-size: 1.6rem;
+    }
   }
 </style>
