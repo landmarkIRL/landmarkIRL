@@ -13,6 +13,8 @@ const pageTitle = "Blog";
           url={post.url}
           title={post.frontmatter.title}
           description={post.frontmatter.description}
+          date={post.frontmatter.pubDate.toString().slice(0, 10)}
+          tags={post.frontmatter.tags}
         />
       ))
     }

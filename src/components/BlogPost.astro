@@ -1,8 +1,146 @@
 ---
-const {title, url, description} = Astro.props;
+const { url, title, description, date, tags } = Astro.props;
 ---
 
-<li>
-    <a href={url}>{title}</a>
-    <p>{description}</p>
+<li class="blog-post">
+  <a href={url} class="title">
+    <h2>{title}</h2>
+  </a>
+  <p class="description">{description}</p>
+  <div class="meta">
+    <span class="tags">
+      {
+        tags.map((tag, index) => (
+          <span>
+            <a href={`/tags/${tag}`} class="tag">
+              {tag}
+            </a>
+            {index < tags.length - 1 && ", "}
+          </span>
+        ))
+      }
+    </span>
+    <span class="date"
+      >{
+        new Date(date).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })
+      }</span
+    >
+  </div>
 </li>
+
+<style>
+  h2 {
+    margin: 0;
+  }
+
+  p {
+    margin: 0.5rem 0;
+  }
+
+  .blog-post {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .blog-post .title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+  }
+
+  .blog-post .title:hover {
+    color: #007acc;
+  }
+
+  .blog-post .description {
+    color: #666;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 1.15rem;
+  }
+
+  .blog-post .meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    color: #999;
+    margin-top: 1rem;
+  }
+
+  .blog-post .tags {
+    font-style: italic;
+  }
+
+  .blog-post .tags .tag {
+    color: #007acc;
+    text-decoration: none;
+  }
+
+  .blog-post .tags .tag:hover {
+    text-decoration: underline;
+  }
+
+  .blog-post .date {
+    font-weight: 500;
+  }
+
+  /* Media Queries for scaling text down */
+  @media (max-width: 1200px) {
+    h2 {
+      font-size: 1.75rem;
+    }
+
+    .blog-post .title {
+      font-size: 1.25rem;
+    }
+
+    .blog-post .description {
+      font-size: 1.1rem;
+    }
+
+    .blog-post .meta {
+      font-size: 0.9rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    .blog-post .title {
+      font-size: 1.1rem;
+    }
+
+    .blog-post .description {
+      font-size: 1rem;
+    }
+
+    .blog-post .meta {
+      font-size: 0.85rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    h2 {
+      font-size: 1.25rem;
+    }
+
+    .blog-post .title {
+      font-size: 1rem;
+    }
+
+    .blog-post .description {
+      font-size: 0.9rem;
+    }
+
+    .blog-post .meta {
+      font-size: 0.8rem;
+    }
+  }
+</style>
