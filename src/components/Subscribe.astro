@@ -1,13 +1,25 @@
-<div class="subscribe">
+<form
+  action="
+          https://buttondown.com/api/emails/embed-subscribe/umoru
+         "
+  method="post"
+  target="_blank"
+  class="subscribe"
+>
   <p class="subscribe__copy">
     Subscribe to keep up with fresh news and exciting updates. We promise not to
     spam you!
   </p>
   <div class="form">
-    <input type="email" class="form__email" placeholder="Enter email address" />
-    <button class="form__button">Send</button>
+    <input
+      type="email"
+      class="form__email"
+      name="email"
+      placeholder="Enter email address"
+    />
+    <button type="submit" class="form__button">Subscribe</button>
   </div>
-</div>
+</form>
 
 <style>
   .subscribe {
@@ -38,14 +50,13 @@
   }
 
   .form__email:focus {
-    outline: 1px solid #3d9fff;
+    outline: 1px solid #78df78;
   }
 
   .form__button {
-    background: #3d9fff;
-    padding: 5px;
+    background: #78df78;
+    padding: 10px;
     border: none;
-    width: 5em;
     height: 2.8em;
     border-radius: 5px;
     font-size: inherit;
