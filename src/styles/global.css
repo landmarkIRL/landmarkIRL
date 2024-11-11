@@ -23,6 +23,10 @@ body, html {
   font-family: 'Inter', sans-serif;
 }
 
+a {
+  color: #78df78;
+}
+
 .hero {
   background-position: center center;
   background-size: cover;
@@ -126,7 +130,7 @@ header {
 
 .nav-links a:hover,
 .nav-links a:focus {
-  color: #D2D987;
+  color: #78df78;
 }
 
 .expanded {
