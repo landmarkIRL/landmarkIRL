@@ -10,14 +10,18 @@ const { url, title, description, date, tags } = Astro.props;
   <div class="meta">
     <span class="tags">
       {
-        tags.map((tag, index) => (
-          <span>
-            <a href={`/tags/${tag}`} class="tag">
-              {tag}
-            </a>
-            {index < tags.length - 1 && ", "}
+        tags && tags.length > 0 && (
+          <span class="tags">
+            {tags.map((tag, index) => (
+              <Fragment key={index}>
+                <a href={`/tags/${tag}`} class="tag">
+                  {tag}
+                </a>
+                {index < tags.length - 1 && ", "}
+              </Fragment>
+            ))}
           </span>
-        ))
+        )
       }
     </span>
     <span class="date"
@@ -60,7 +64,8 @@ const { url, title, description, date, tags } = Astro.props;
 
   .blog-post .description {
     color: #666;
-    font-family: "Merriweather", serif;font-weight: 300;
+    font-family: "Merriweather", serif;
+    font-weight: 300;
     font-weight: 300;
     font-style: normal;
     font-size: 1.1rem;

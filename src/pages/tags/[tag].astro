@@ -37,7 +37,12 @@ const canonicalURL = `https://landmarkirl.brimble.app/tags/${tag}`;
   <ul>
     {
       posts.map((post) => (
-        <BlogPost url={post.url} title={post.frontmatter.title} />
+        <BlogPost
+          url={post.url}
+          title={post.frontmatter.title}
+          date={post.frontmatter.pubDate.toString().slice(0, 10)}
+          tags={post.frontmatter.tags}
+        />
       ))
     }
   </ul>
