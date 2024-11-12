@@ -1,14 +1,17 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import BlogPost from '../../components/BlogPost.astro';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BlogPost from "../../components/BlogPost.astro";
 
 export async function getStaticPaths() {
-  const allPosts = await Astro.glob('../posts/*.md');
-
-  const uniqueTags = [...new Set(allPosts.map((post) => post.frontmatter.tags).flat())];
+  const allPosts = await Astro.glob("../posts/*.md");
+  const uniqueTags = [
+    ...new Set(allPosts.map((post) => post.frontmatter.tags).flat()),
+  ];
 
   return uniqueTags.map((tag) => {
-    const filteredPosts = allPosts.filter((post) => post.frontmatter.tags.includes(tag));
+    const filteredPosts = allPosts.filter((post) =>
+      post.frontmatter.tags.includes(tag)
+    );
     return {
       params: { tag },
       props: { posts: filteredPosts },
@@ -18,10 +21,24 @@ export async function getStaticPaths() {
 
 const { tag } = Astro.params;
 const { posts } = Astro.props;
+
+// SEO Metadata for the individual tag page
+const pageTitle = `Posts Tagged: ${tag}`;
+const pageDescription = `Explore all posts related to the "${tag}" tag. Discover content that focuses on ${tag}.`;
+const canonicalURL = `https://landmarkirl.brimble.app/tags/${tag}`;
 ---
-<BaseLayout pageTitle={tag}>
+
+<BaseLayout
+  pageTitle={pageTitle}
+  pageDescription={pageDescription}
+  canonicalURL={canonicalURL}
+>
   <p>Posts tagged with {tag}</p>
   <ul>
-    {posts.map((post) => <BlogPost url={post.url} title={post.frontmatter.title}/>)}
+    {
+      posts.map((post) => (
+        <BlogPost url={post.url} title={post.frontmatter.title} />
+      ))
+    }
   </ul>
 </BaseLayout>

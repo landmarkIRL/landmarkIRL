@@ -1,9 +1,14 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 const { frontmatter } = Astro.props;
+
+// SEO Metadata for each post
+const pageTitle = frontmatter.title;
+const pageDescription = frontmatter.description || "A great post on our blog.";
+const canonicalURL = `https://landmarkirl.brimble.app/posts/${frontmatter.slug}`;
 ---
 
-<BaseLayout pageTitle={frontmatter.title}>
+<BaseLayout pageTitle={pageTitle} pageDescription={pageDescription} canonicalURL={canonicalURL}>
   <h1 class="title">{frontmatter.title}</h1>
   <p id="subtitle">{frontmatter.description}</p>
   <div class="meta">
@@ -20,15 +25,15 @@ const { frontmatter } = Astro.props;
       }
     </span>
     <span> -- </span>
-    <span class="date"
-      >{
+    <span class="date">
+      {
         new Date(frontmatter.pubDate).toLocaleDateString("en-US", {
           year: "numeric",
           month: "long",
           day: "numeric",
         })
-      }</span
-    >
+      }
+    </span>
   </div>
   <div class="content">
     <slot />

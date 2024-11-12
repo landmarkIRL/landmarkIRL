@@ -3,9 +3,16 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import BlogPost from "../components/BlogPost.astro";
 const allPosts = await Astro.glob("./posts/*.md");
 const pageTitle = "Blog";
+const pageDescription =
+  "Read about the latest updates, stories, and posts from the LandmarkIRL blog.";
+const canonicalURL = "https://landmarkirl.brimble.app/blog";
 ---
 
-<BaseLayout pageTitle={pageTitle}>
+<BaseLayout
+  pageTitle={pageTitle}
+  pageDescription={pageDescription}
+  canonicalURL={canonicalURL}
+>
   <ul>
     {
       allPosts.map((post) => (

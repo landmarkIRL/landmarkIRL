@@ -1,7 +1,14 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
 const pageTitle = "LandmarkIRL";
+const pageDescription =
+  "A chronicle of the lives of my former classmates from Landmark University and the cool things they’re doing after graduation.";
+const canonicalURL = "https://landmarkirl.brimble.app/";
 ---
-<BaseLayout pageTitle={pageTitle}>
 
+<BaseLayout
+  pageTitle={pageTitle}
+  pageDescription={pageDescription}
+  canonicalURL={canonicalURL}
+>
 </BaseLayout>
