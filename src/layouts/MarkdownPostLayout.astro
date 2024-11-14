@@ -5,7 +5,7 @@ const { frontmatter } = Astro.props;
 // SEO Metadata for each post
 const pageTitle = frontmatter.title;
 const pageDescription = frontmatter.description || "A great post on our blog.";
-const canonicalURL = `https://landmarkirl.brimble.app/posts/${frontmatter.slug}`;
+const canonicalURL = `https://landmarkirl.xyz/posts/${frontmatter.slug}`;
 ---
 
 <BaseLayout pageTitle={pageTitle} pageDescription={pageDescription} canonicalURL={canonicalURL}>
