@@ -1,5 +1,17 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import BlogPost from "../components/BlogPost.astro";
+
+const posts = await Astro.glob("./posts/*.md");
+
+const sortedPosts = posts
+  .sort(
+    (a, b) =>
+      new Date(b.frontmatter.pubDate).getTime() -
+      new Date(a.frontmatter.pubDate).getTime()
+  )
+  .slice(0, 3);
+
 const pageTitle = "LandmarkIRL";
 const pageDescription =
   "A chronicle of the lives of my former classmates from Landmark University and the cool things they’re doing after graduation.";
@@ -11,4 +23,17 @@ const canonicalURL = "https://landmarkirl.xyz/";
   pageDescription={pageDescription}
   canonicalURL={canonicalURL}
 >
+  <ul>
+    {
+      sortedPosts.map((post) => (
+        <BlogPost
+          url={post.url}
+          title={post.frontmatter.title}
+          description={post.frontmatter.description}
+          date={post.frontmatter.pubDate.toString().slice(0, 10)}
+          tags={post.frontmatter.tags}
+        />
+      ))
+    }
+  </ul>
 </BaseLayout>
