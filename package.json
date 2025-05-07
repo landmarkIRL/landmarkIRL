@@ -23,7 +23,14 @@
     "rough-notation": "^0.5.1"
   },
   "devDependencies": {
+    "@csstools/postcss-logical-viewport-units": "^3.0.3",
     "@types/node": "^22.15.15",
-    "sass": "^1.87.0"
+    "autoprefixer": "^10.4.21",
+    "cssnano": "^7.0.7",
+    "postcss-clamp": "^4.1.0",
+    "postcss-media-minmax": "^5.0.0",
+    "postcss-utopia": "^1.1.0",
+    "sass": "^1.87.0",
+    "sharp": "^0.34.1"
   }
 }
