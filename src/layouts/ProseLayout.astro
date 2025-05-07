@@ -1,0 +1,164 @@
+---
+import type { RoughAnnotationType } from "rough-notation/lib/model";
+import PageHeader from "../components/PageHeader.astro";
+import type { ThemeColor } from "../data/colors";
+import { smartquotes } from "../helpers/helpers";
+import BaseLayout from "./BaseLayout.astro";
+import type { MarkdownHeading } from "astro";
+import TableOfContents from "../components/TableOfContents.astro";
+
+interface Props {
+  title: string;
+  date?: Date;
+  description?: string;
+  ogImage?: string;
+  ogAlt?: string;
+  annotation?: RoughAnnotationType;
+  color?: ThemeColor;
+  headings?: MarkdownHeading[];
+}
+
+const {
+  title,
+  date,
+  description,
+  ogImage,
+  ogAlt,
+  annotation,
+  color,
+  headings,
+} = Astro.props;
+---
+
+<BaseLayout
+  title={title}
+  description={description && smartquotes(description)}
+  ogImage={ogImage}
+  ogAlt={ogAlt}
+  color={color}
+>
+  <article
+    class="article-grid"
+    itemscope
+    itemtype="https://schema.org/BlogPosting"
+  >
+    <PageHeader
+      title={title}
+      date={date}
+      description={description && smartquotes(description)}
+      annotation={annotation}
+    />
+    <slot name="after-header" />
+    <TableOfContents headings={headings} />
+    <section itemprop="articleBody" class="prose">
+      <slot />
+    </section>
+    <slot name="after-content" />
+  </article>
+</BaseLayout>
+
+<style lang="scss" is:global>
+  .article-grid {
+    display: grid;
+    grid-auto-rows: minmax(min-content, max-content);
+    column-gap: var(--space-m);
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "head"
+      "authors"
+      "toc"
+      "prose"
+      "bios";
+    @media (width >= 900px) {
+      grid-template-columns: 3fr 1fr;
+      grid-template-areas:
+        "head head"
+        "authors toc"
+        "prose toc"
+        "bios .";
+
+      .toc {
+        position: sticky;
+        top: var(--space-xl);
+        right: 0;
+        max-height: fit-content;
+      }
+    }
+
+    .bios {
+      grid-area: bios;
+    }
+
+    .prose:not(.not-content) {
+      grid-area: prose;
+    }
+
+    .toc {
+      grid-area: toc;
+    }
+
+    .authors {
+      grid-area: authors;
+    }
+
+    .page-head {
+      grid-area: head;
+    }
+  }
+
+  .prose:not(.not-content) {
+    max-width: 720px;
+    margin-inline-end: auto;
+    grid-area: prose;
+
+    [id] {
+      scroll-margin-top: 1ex;
+    }
+
+    h2,
+    h3 {
+      margin-block: var(--space-2xl) var(--space-m);
+      text-wrap: balance;
+    }
+
+    *:first-child {
+      margin-block-start: 0;
+    }
+
+    p,
+    ul,
+    ol,
+    img {
+      margin-bottom: var(--space-m);
+    }
+
+    img,
+    ul,
+    ol {
+      margin-block: var(--space-xl);
+    }
+
+    ul,
+    ol {
+      padding-inline-start: var(--space-xl);
+
+      li {
+        padding-inline-start: var(--space-s);
+      }
+    }
+
+    ul ul,
+    ol ul,
+    ul ol,
+    ol ol {
+      margin-block: 0;
+    }
+
+    img:not(.no-filter) {
+      filter: grayscale(100%) contrast(120%) brightness(130%);
+      opacity: 0.9;
+      mix-blend-mode: multiply;
+      border-radius: var(--radius-xs);
+    }
+  }
+</style>
