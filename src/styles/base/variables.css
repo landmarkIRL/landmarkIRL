@@ -1,4 +1,20 @@
 :root {
+  @utopia typeScale({
+    minFontSize: 18,
+    maxFontSize: 22,
+    minTypeScale: 1.2,
+    maxTypeScale: 1.25,
+    positiveSteps: 7,
+    negativeSteps: 1,
+  });
+
+  @utopia spaceScale({
+    minSize: 8,
+    maxSize: 12,
+    positiveSteps: [1.5, 2, 3, 4, 6],
+    negativeSteps: [0.75, 0.5],
+  });
+
   /* Line heights */
   --line-height-single: 1;
   --line-height-display: 1.1;
@@ -30,7 +46,7 @@
 [data-color="purple"] {
   --bg: #CDA5EF;
 }
-  
+
 [data-color="pink"] {
   --bg: #ECADD4;
 }
@@ -38,7 +54,7 @@
 [data-color="blue"] {
   --bg: #96C7F2;
 }
-  
+
 [data-color="yellow"] {
   --bg: #ECDD85; 
 }
@@ -46,7 +62,7 @@
 [data-color="brown"] {
   --bg: #DDB896;
 }
-  
+
 [data-color="white"] {
   --bg: #E1E1E1;
 }
