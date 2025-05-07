@@ -1,71 +1,72 @@
+---
+import { RiArrowRightLine } from "react-icons/ri";
+---
+
 <form
-  action="
-          https://buttondown.com/api/emails/embed-subscribe/landmarkirl
-         "
+  action="https://buttondown.com/api/emails/embed-subscribe/landmarkirl"
   method="post"
   target="_blank"
-  class="subscribe"
 >
-  <p class="subscribe__copy">
-    Subscribe to keep up with fresh news and exciting updates. We promise not to
-    spam you!
-  </p>
-  <div class="form">
-    <input
-      type="email"
-      class="form__email"
-      name="email"
-      placeholder="Enter email address"
-    />
-    <button type="submit" class="form__button">Subscribe</button>
+  <strong
+    >Subscribe to get the latest news and exciting updates directly in your
+    inbox!</strong
+  >
+  <div class="input-group">
+    <input type="email" name="email" placeholder="Your email" required />
+    <button type="submit">Subscribe <RiArrowRightLine /></button>
   </div>
-  <p><b>Check out the GitHub <a href="https://github.com/landmarkirl" target="_blank">@LandmarkIRL</a></b></p>
+  <div hidden>
+    <label for="special">
+      If you are a human, do not fill in this field.
+    </label>
+    <input type="text" name="special" tabindex="-1" autocomplete="off" />
+  </div>
 </form>
 
-<style>
-  .subscribe {
+<style lang="scss">
+  form {
+    position: relative;
+    border-radius: 3px;
+    width: 100%;
+    max-width: 520px;
+
+    :focus-visible {
+      outline-color: var(--footerText);
+    }
+  }
+
+  .input-group {
+    max-width: 100%;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 70px 0 20px;
+    gap: var(--space-xs);
+    margin-block-start: var(--space-s);
   }
 
-  .subscribe__copy {
-    max-width: 23em;
-    text-align: center;
-    line-height: 1.5;
-  }
-
-  .form {
-    margin-bottom: 25px;
-  }
-
-  .form__email {
-    padding: 0.7em 1em;
-    border-radius: 5px;
-    border: 1px solid #cad3db;
-    width: 12em;
-    font-size: inherit;
-    color: #0f121f;
-  }
-
-  .form__email:focus {
-    outline: 1px solid #78df78;
-  }
-
-  .form__button {
-    background: #78df78;
-    padding: 10px;
+  input,
+  button {
     border: none;
-    height: 2.8em;
-    border-radius: 5px;
-    font-size: inherit;
-    color: white;
-    box-shadow: 0 4px 20px #78df78;
+    background: var(--bg);
+    border-radius: 3px;
+    color: var(--text);
+    padding: var(--space-xs) var(--space-s);
   }
 
-  .form__button:hover {
-    box-shadow: 0 10px 20px #78df78;
+  input {
+    flex: 1;
+    min-width: 0;
+
+    &::placeholder {
+      color: var(--text-placeholder);
+    }
+  }
+
+  button {
+    font-weight: 600;
+    flex-shrink: 0;
+    cursor: pointer;
+    display: inline-flex;
+    gap: var(--space-2xs);
+    align-items: center;
+    padding-inline: var(--space-m);
   }
 </style>
