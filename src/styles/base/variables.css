@@ -1,0 +1,52 @@
+:root {
+  /* Line heights */
+  --line-height-single: 1;
+  --line-height-display: 1.1;
+  --line-height-body: 1.35;
+
+  /* Letter spacing */
+  --letter-spacing-condensed: -0.02em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-loose: 0.01em;
+
+  /* Radii */
+  --radius-2xs: var(--space-2xs);
+  --radius-xs: var(--space-xs);
+  --radius-s: var(--space-s);
+  --radius-m: var(--space-m);
+  --radius-l: var(--space-l);
+
+  /* Colors */
+  --bg: #97CF9C;
+  --text: #111111;
+  --text-placeholder: rgba(0, 0, 0, 0.5);
+  --white: #ffffff;
+}
+
+[data-color="green"] {
+  --bg: #97CF9C;
+}
+
+[data-color="purple"] {
+  --bg: #CDA5EF;
+}
+  
+[data-color="pink"] {
+  --bg: #ECADD4;
+}
+
+[data-color="blue"] {
+  --bg: #96C7F2;
+}
+  
+[data-color="yellow"] {
+  --bg: #ECDD85; 
+}
+
+[data-color="brown"] {
+  --bg: #DDB896;
+}
+  
+[data-color="white"] {
+  --bg: #E1E1E1;
+}
