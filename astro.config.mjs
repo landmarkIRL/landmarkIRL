@@ -30,4 +30,10 @@ export default defineConfig({
       },
     },
   },
+  redirects: {
+    "/share": "/posts",
+    "/donate": "https://buymeacoffee.com/theumoru",
+    "/guestook": "https://guestbook.landmarkirl.xyz",
+    "/webring": "https://webring.landmarkirl.xyz",
+  },
 });
