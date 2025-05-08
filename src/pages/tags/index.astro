@@ -1,24 +1,39 @@
 ---
-import siteInfo from "../../data/site-info";
+import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageHeader from "../../components/PageHeader.astro";
-
 import { getEntry, render } from "astro:content";
+
+const allPosts = await getCollection("posts");
+const uniqueTags = [
+  ...new Set(allPosts.flatMap((post) => post.data.tags || [])),
+].sort();
 
 const entry = await getEntry("pages", "index");
 if (!entry) return Astro.redirect("/404");
 const { Content } = await render(entry);
 ---
 
-<BaseLayout
-  title="Tags"
-  description="Find posts by tags."
-  color="brown"
->
-  <PageHeader
-    title="Tags"
-    description="Find posts by tags."
-  />
+<BaseLayout title="Tags" description="Find posts by tags." color="brown">
+  <PageHeader title="Tags" description="Find posts by tags." />
+
+  <div class="container">
+    {
+      uniqueTags.length > 0 ? (
+        <ul class="tag-list">
+          {uniqueTags.map((tag) => (
+            <li>
+              <a href={`/tags/${encodeURIComponent(tag)}`} class="outline">
+                {tag}
+              </a>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No tags found.</p>
+      )
+    }
+  </div>
 </BaseLayout>
 
 <script>
@@ -35,5 +50,44 @@ const { Content } = await render(entry);
 </script>
 
 <style lang="scss">
+  .container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
 
+    ul.tag-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs, 0.5rem);
+    }
+
+    a {
+      --nav-border: transparent;
+      font-size: var(--step-0, 1rem);
+      font-weight: 600;
+      border: 3px solid var(--nav-border);
+      text-decoration: none;
+      border-radius: 3px;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs, 0.5rem);
+      padding: 0.75rem 1.5rem;
+      color: var(--text, #333);
+      background-color: var(--color-background-offset, #f9f9f9);
+
+      &.outline {
+        --nav-border: var(--text);
+        background-color: transparent;
+      }
+
+      @media (hover: hover) {
+        &:hover {
+          background-color: var(--text, #333);
+          color: var(--bg, #fff);
+        }
+      }
+    }
+  }
 </style>
