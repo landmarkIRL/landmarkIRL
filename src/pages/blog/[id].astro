@@ -1,5 +1,6 @@
 ---
 import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
 import {
   type CollectionEntry,
   getCollection,
@@ -46,7 +47,7 @@ const authors = await getEntries(data.authors);
           {author.data.avatar && (
             <Image
               class="avatar"
-              src={author.data.avatar}
+              src={author.data.avatar as ImageMetadata}
               alt={`${author.data.name} photo`}
               width={32}
               densities={[1, 2]}
@@ -64,14 +65,16 @@ const authors = await getEntries(data.authors);
       authors.map(({ data: { avatar, name, bio, socialLinks } }) => (
         <div class="bio">
           <div class="bio-avatar">
-            <Image
-              class="avatar"
-              src={avatar}
-              alt={`${name} photo`}
-              width={80}
-              height={80}
-              densities={[1, 2]}
-            />
+            {avatar && (
+              <Image
+                class="avatar"
+                src={avatar as ImageMetadata}
+                alt={`${name} photo`}
+                width={80}
+                height={80}
+                densities={[1, 2]}
+              />
+            )}
           </div>
           <div class="content">
             <strong>{name}</strong>
