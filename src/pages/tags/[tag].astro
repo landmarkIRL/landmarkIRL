@@ -1,19 +1,21 @@
 ---
+import { getCollection, getEntries } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import BlogPost from "../../components/BlogPost.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import ArticleLink from "../../components/ArticleLink.astro";
 
 export async function getStaticPaths() {
-  const allPosts = await Astro.glob("../posts/*.md");
+  const allPosts = await getCollection("posts");
   const uniqueTags = [
-    ...new Set(allPosts.map((post) => post.frontmatter.tags).flat()),
+    ...new Set(allPosts.flatMap((post) => post.data.tags || [])),
   ];
 
   return uniqueTags.map((tag) => {
-    const filteredPosts = allPosts.filter((post) =>
-      post.frontmatter.tags.includes(tag)
+    const filteredPosts = allPosts.filter(
+      (post) => post.data.tags && post.data.tags.includes(tag)
     );
     return {
-      params: { tag },
+      params: { tag: tag },
       props: { posts: filteredPosts },
     };
   });
@@ -22,28 +24,56 @@ export async function getStaticPaths() {
 const { tag } = Astro.params;
 const { posts } = Astro.props;
 
-// SEO Metadata for the individual tag page
-const pageTitle = `Posts Tagged: ${tag}`;
-const pageDescription = `Explore all posts related to the "${tag}" tag. Discover content that focuses on ${tag}.`;
-const canonicalURL = `https://landmarkirl.xyz/tags/${tag}`;
+const sortedPosts = posts.sort(
+  (a, b) =>
+    new Date(b.data.publishDate).getTime() -
+    new Date(a.data.publishDate).getTime()
+);
 ---
 
-<BaseLayout
-  pageTitle={pageTitle}
-  pageDescription={pageDescription}
-  canonicalURL={canonicalURL}
->
-  <p>Posts tagged with {tag}</p>
-  <ul>
+<BaseLayout title={`Tagged: ${tag}`} description={`Posts tagged with ${tag}`} color="blue">
+  <PageHeader
+    title={`Tagged: "${tag}"`}
+    description={`Found ${posts.length} post${posts.length === 1 ? "" : "s"} tagged with "${tag}".`}
+  />
+  <div class="posts-container">
     {
-      posts.map((post) => (
-        <BlogPost
-          url={post.url}
-          title={post.frontmatter.title}
-          date={post.frontmatter.pubDate.toString().slice(0, 10)}
-          tags={post.frontmatter.tags}
-        />
-      ))
+      sortedPosts.length > 0 ? (
+        sortedPosts.map(async (post) => {
+          let authorsNames: string[] = [];
+          if (
+            Array.isArray(post.data.authors) &&
+            post.data.authors.length > 0
+          ) {
+            try {
+              const authorEntries = await getEntries(post.data.authors);
+              authorsNames = authorEntries.map((author) => author.data.name);
+            } catch (e) {
+              console.error(`Error fetching authors for post ${post.id}:`, e);
+            }
+          }
+
+          const imageProp = post.data.image
+            ? {
+                src: post.data.image.src.src,
+                alt: post.data.image.alt,
+              }
+            : undefined;
+
+          return (
+            <ArticleLink
+              title={post.data.title}
+              date={post.data.publishDate}
+              url={`/blog/${post.id}`}
+              description={post.data.description}
+              authors={authorsNames.length > 0 ? authorsNames : undefined}
+              image={imageProp}
+            />
+          );
+        })
+      ) : (
+        <p>No posts found with this tag.</p>
+      )
     }
-  </ul>
+  </div>
 </BaseLayout>

@@ -1,65 +1,105 @@
 ---
+import { join } from "node:path";
+import { AstroFont } from "astro-font";
+import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
-import Hero from "../components/Hero.astro";
-import Subscribe from "../components/Subscribe.astro";
+import type { ThemeColor } from "../data/colors";
+import { colors } from "../data/colors";
+import siteInfo from "../data/site-info";
 import "../styles/global.css";
 
-const { pageTitle, pageDescription, canonicalURL } = Astro.props;
-const isHomePage = pageTitle === "LandmarkIRL";
-const heroImage = isHomePage ? "/landmarkuni.jpg" : "/senate.jpg";
+export interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  ogAlt?: string;
+  color?: ThemeColor;
+}
+
+const {
+  title,
+  description = siteInfo.description,
+  ogImage = siteInfo.image.src,
+  ogAlt = siteInfo.image.alt,
+  color = "green",
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const pageTitle = Astro.url.pathname === "/" ? title : `${title} · LandmarkIRL`;
 ---
 
+<!doctype html>
 <html lang="en">
   <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-018VZ53RTK"
-    ></script>
-    <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-
-      gtag("config", "G-018VZ53RTK");
-    </script>
-
     <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://rsms.me/" />
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content={colors[color]?.hex} />
+    <link rel="icon" href="/favicon.ico?v3" sizes="32x32" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v3" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="canonical" href={canonicalURL} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap"
       rel="stylesheet"
     />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-
-    <!-- SEO Meta Tags -->
-    <title>{pageTitle}</title>
-    <meta name="description" content={pageDescription} />
-    <meta property="og:title" content={pageTitle} />
-    <meta property="og:description" content={pageDescription} />
-    <meta property="og:image" content={heroImage} />
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content={new URL(ogImage, Astro.url.origin)} />
+    <meta property="og:image:alt" content={ogAlt} />
+    <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="LandmarkIRL" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:creator" content="@thedavidumoru" />
-    <meta name="twitter:title" content={pageTitle} />
-    <meta name="twitter:description" content={pageDescription} />
-    <meta name="twitter:image" content={heroImage} />
-    <link rel="canonical" href={canonicalURL} />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <title>{pageTitle}</title>
+    <AstroFont
+      config={[
+        {
+          name: "Alte Haas Grotesk",
+          src: [
+            {
+              style: "normal",
+              weight: "400",
+              path: join(
+                process.cwd(),
+                "public",
+                "fonts",
+                "AlteHaasGroteskRegular.woff2"
+              ),
+            },
+            {
+              style: "bold",
+              weight: "600",
+              path: join(
+                process.cwd(),
+                "public",
+                "fonts",
+                "AlteHaasGroteskBold.woff2"
+              ),
+            },
+          ],
+          preload: true,
+          display: "swap",
+          selector: "body",
+          fallback: "sans-serif",
+          cssVariable: "font-sans",
+        },
+      ]}
+    />
   </head>
-  <body>
+  <body data-color={color}>
     <Header />
-    <Hero image={heroImage} isHomePage={isHomePage} />
-    <main class="content-container">
+    <main>
       <slot />
-      <Subscribe />
     </main>
-    <script>
-      import "../scripts/menu.js";
-    </script>
+    <Footer />
   </body>
 </html>
