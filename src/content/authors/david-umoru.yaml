@@ -1,0 +1,8 @@
+name: David Umoru
+role: Design Engineer
+avatar: ../../assets/images/authors/david-umoru/avatar.jpg
+bio: David Umoru builds things. He spends a lot of time working with code. Designs as well, whenever it feels necessary or when the idea calls for it.
+socialLinks: [
+  { name: "Website", url: "https://davidumoru.me/" },
+  { name: "Twitter", url: "https://twitter.com/theumoru" },
+]
