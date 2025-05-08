@@ -11,10 +11,9 @@ const uniqueTags = [
 
 const entry = await getEntry("pages", "index");
 if (!entry) return Astro.redirect("/404");
-const { Content } = await render(entry);
 ---
 
-<BaseLayout title="Tags" description="Find posts by tags." color="brown">
+<BaseLayout title="Tags" description="Find posts by tags." color="blue">
   <PageHeader title="Tags" description="Find posts by tags." />
 
   <div class="container">
