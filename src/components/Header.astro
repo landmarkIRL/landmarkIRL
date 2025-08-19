@@ -1,12 +1,9 @@
 ---
-import siteInfo from "../data/site-info";
-import Logo from "./Logo.astro";
 
-const { socialLinks } = siteInfo;
 ---
 
 <header>
-  <a href="/" aria-label="LandmarkIRL homepage" id="logo"><Logo /></a>
+  <a href="/" aria-label="LandmarkIRL homepage" id="logo">LandmarkIRL</a>
   <nav>
     <a href="/tags">Tags</a>
     <a href="/blog" class="outline">Blog</a>
@@ -30,13 +27,15 @@ const { socialLinks } = siteInfo;
     justify-content: flex-start;
     padding: var(--space-l);
     width: 100%;
-    max-width: 1200px;
     margin-inline: auto;
   }
 
   a {
     padding: var(--space-xs) var(--space-s);
     margin: calc(var(--space-xs) * -1);
+    font-size: var(--step--2);
+    font-weight: 600;
+    text-decoration: none;
   }
 
   nav {
@@ -46,10 +45,7 @@ const { socialLinks } = siteInfo;
 
     a {
       --nav-border: transparent;
-      font-size: var(--step--1);
-      font-weight: 600;
       border: 3px solid var(--nav-border);
-      text-decoration: none;
       border-radius: 3px;
       display: inline-flex;
       gap: var(--space-xs);
