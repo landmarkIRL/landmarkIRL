@@ -1,27 +1,9 @@
-import { defineCollection, reference, z } from "astro:content";
+import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
 import type { RoughAnnotationType } from "rough-notation/lib/model";
 import type { ThemeColor } from "./data/colors";
 
 export const collections = {
-  authors: defineCollection({
-    loader: glob({ pattern: "**/[^_]*.yaml", base: "./src/content/authors" }),
-    schema: ({ image }) =>
-      z.object({
-        name: z.string(),
-        role: z.string(),
-        bio: z.string(),
-        avatar: image(),
-        socialLinks: z
-          .object({
-            name: z.string(),
-            url: z.string().url(),
-          })
-          .array()
-          .optional(),
-      }),
-  }),
-
   pages: defineCollection({
     loader: glob({ pattern: "**/[^_]*.md", base: "./src/content/pages" }),
     schema: ({ image }) =>
@@ -49,7 +31,6 @@ export const collections = {
           .string()
           .or(z.date())
           .transform((v) => new Date(v)),
-        authors: z.array(reference("authors")),
         image: z
           .object({
             src: image(),

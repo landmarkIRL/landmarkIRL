@@ -3,8 +3,6 @@ title: Introducing LandmarkIRL
 description: >-
   Unveiling 'Landmark in real life' and the many inspiring stories to come.
 publishDate: 2025-05-08
-authors:
-  - david-umoru
 ---
 
 ## Why I Started This
