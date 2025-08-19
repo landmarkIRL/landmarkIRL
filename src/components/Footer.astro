@@ -3,86 +3,36 @@ import siteInfo from "../data/site-info";
 import Subscribe from "./Subscribe.astro";
 
 const { socialLinks } = siteInfo;
-const year = new Date().getFullYear();
-
-type Link = {
-  href: string;
-  label: string;
-  title?: string;
-};
-
-type LinkGroup = {
-  title: string;
-  links: Link[];
-};
-
-const linkGroups: LinkGroup[] = [
-  {
-    title: "Explore",
-    links: [
-      { href: "/guestbook", label: "Guestbook" },
-      { href: "/webring", label: "Webring" },
-    ],
-  },
-  {
-    title: "Get Involved",
-    links: [
-      { href: "/share", label: "Share Your Story" },
-      { href: "/donate", label: "Donate" },
-    ],
-  },
-];
 ---
 
 <footer>
   <div class="content">
-    <Subscribe />
-    <div class="links">
-      {
-        linkGroups.map(({ title, links }) => (
-          <div class="linkGroup">
-            <strong>{title}</strong>
-            {links.map(({ href, label, title }) => (
-              <a {href} {title}>
-                {label}
-              </a>
-            ))}
-          </div>
-        ))
-      }
-    </div>
-  </div>
-  <div class="content end">
-    <div class="copyright">
-      <span>{siteInfo.fullName} &copy; {year}</span>
-    </div>
     <div class="social">
       {
         Object.values(socialLinks).map(({ href, Icon, text }) => (
-          <a {href} title={text}>
+          <a {href} title={text} target="_blank" rel="noopener">
             <Icon size={28} />
           </a>
         ))
       }
     </div>
   </div>
+  <div class="content">
+    <Subscribe />
+  </div>
 </footer>
 
 <style lang="scss">
   footer {
-    --footerBg: var(--text);
-    --footerText: var(--bg);
-
-    background: var(--footerBg);
-    color: var(--footerText);
-    line-height: 1.5;
+    background: var(--text);
+    color: var(--bg);
     width: 100%;
-    padding-block: var(--space-xl) var(--space-l);
+    padding-block: var(--space-xl);
     margin-block-start: var(--space-2xl);
-    position: relative;
+    padding-bottom: var(--space-3xl);
 
     :focus-visible {
-      outline-color: var(--footerText);
+      outline-color: var(--bg);
     }
 
     @media (hover: hover) {
@@ -93,84 +43,18 @@ const linkGroups: LinkGroup[] = [
   }
 
   .content {
-    padding-inline: var(--space-l);
-    flex: 1;
+    padding-inline: var(--space-xl);
     width: 100%;
-    max-width: 1200px;
     margin-inline: auto;
     display: flex;
-    justify-content: space-between;
-    gap: var(--space-xl);
 
     + .content {
       margin-block-start: var(--space-xl);
     }
-
-    &.end {
-      align-items: center;
-    }
-
-    @media (width < 900px) {
-      flex-direction: column;
-      gap: var(--space-xl);
-
-      .linkGroup {
-        width: unset;
-        flex: 1;
-      }
-
-      .social {
-        gap: var(--space-l);
-      }
-
-      .copyright {
-        order: 1;
-      }
-    }
-  }
-
-  @keyframes snailing {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(calc(-100% - 100vw));
-    }
-  }
-
-  .links {
-    display: flex;
-    gap: var(--space-m);
-    align-items: stretch;
-
-    a {
-      font-size: var(--step--1);
-    }
-  }
-
-  .linkGroup {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 12ch;
-
-    > * {
-      padding-block: var(--space-2xs);
-    }
-  }
-
-  .copyright {
-    font-size: var(--step--1);
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    gap: var(--space-xs);
-    flex-wrap: wrap;
   }
 
   .social {
     display: flex;
     gap: var(--space-m);
-    font-size: var(--step-2);
   }
 </style>

@@ -1,11 +1,7 @@
 import type { IconType } from "react-icons/lib";
-import {
-  RiGithubFill,
-  RiLinkedinBoxFill,
-  RiMailSendFill,
-} from "react-icons/ri";
+import { RiGithubFill, RiTwitterXFill, RiMailFill } from "react-icons/ri";
 
-type SocialPlatform = "github" | "linkedin" | "email";
+type SocialPlatform = "github" | "twitter" | "email";
 
 export type SocialLink = {
   name: string;
@@ -37,23 +33,23 @@ const siteInfo: SiteInfo = {
     alt: "Landmark in real life",
   },
   socialLinks: {
+    email: {
+      name: "Email",
+      text: "Email David",
+      href: "mailto:hey@davidumoru.me",
+      Icon: RiMailFill,
+    },
+    twitter: {
+      name: "Twitter/X",
+      text: "Follow David on X",
+      href: "https://www.x.com/theumoru",
+      Icon: RiTwitterXFill,
+    },
     github: {
       name: "GitHub",
       text: "Go to LandmarkIRL's GitHub repo",
       href: "https://github.com/landmarkirl",
       Icon: RiGithubFill,
-    },
-    linkedin: {
-      name: "LinkedIn",
-      text: "Connect with David on LinkedIn",
-      href: "https://www.linkedin.com/in/david-umoru",
-      Icon: RiLinkedinBoxFill,
-    },
-    email: {
-      name: "Email",
-      text: "Email David",
-      href: "mailto:hey@davidumoru.me",
-      Icon: RiMailSendFill,
     },
   },
 };
