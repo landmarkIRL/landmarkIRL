@@ -2,29 +2,17 @@
 import siteInfo from "../data/site-info";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getEntry, render, getCollection } from "astro:content";
-import type { ThemeColor } from "../data/colors";
 
 const entry = await getEntry("pages", "index");
 if (!entry) return Astro.redirect("/404");
 const { Content } = await render(entry);
 
 const posts = await getCollection("posts");
-
-const colors: ThemeColor[] = [
-  "purple",
-  "pink",
-  "blue",
-  "yellow",
-  "green",
-  "brown",
-];
-const randomColor = colors[Math.floor(Math.random() * colors.length)];
 ---
 
 <BaseLayout
   title={siteInfo.name}
   description={siteInfo.description}
-  color={randomColor}
 >
   <div class="home">
     <div class="item is-expandable">

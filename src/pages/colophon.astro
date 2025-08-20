@@ -1,23 +1,11 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHeader from "../components/PageHeader.astro";
-import type { ThemeColor } from "../data/colors";
-
-const colors: ThemeColor[] = [
-  "purple",
-  "pink",
-  "blue",
-  "yellow",
-  "green",
-  "brown",
-];
-const randomColor = colors[Math.floor(Math.random() * colors.length)];
 ---
 
 <BaseLayout
   title={"Colophon"}
   description={"Colophon of the Landmark IRL website, detailing the technologies and tools used."}
-  color={randomColor}
 >
   <PageHeader
     title={"Colophon"}

@@ -4,7 +4,6 @@ import { AstroFont } from "astro-font";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import type { ThemeColor } from "../data/colors";
-import { colors } from "../data/colors";
 import siteInfo from "../data/site-info";
 import "../styles/global.css";
 
@@ -16,12 +15,22 @@ export interface Props {
   color?: ThemeColor;
 }
 
+const colors: ThemeColor[] = [
+  "purple",
+  "pink",
+  "blue",
+  "yellow",
+  "green",
+  "brown",
+];
+const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
 const {
   title,
   description = siteInfo.description,
   ogImage = siteInfo.image.src,
   ogAlt = siteInfo.image.alt,
-  color = "green",
+  color = randomColor,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);

@@ -1,7 +1,6 @@
 ---
 import type { RoughAnnotationType } from "rough-notation/lib/model";
 import PageHeader from "../components/PageHeader.astro";
-import type { ThemeColor } from "../data/colors";
 import { smartquotes } from "../helpers/helpers";
 import BaseLayout from "./BaseLayout.astro";
 import type { MarkdownHeading } from "astro";
@@ -14,7 +13,6 @@ interface Props {
   ogImage?: string;
   ogAlt?: string;
   annotation?: RoughAnnotationType;
-  color?: ThemeColor;
   headings?: MarkdownHeading[];
 }
 
@@ -25,7 +23,6 @@ const {
   ogImage,
   ogAlt,
   annotation,
-  color,
   headings,
 } = Astro.props;
 ---
@@ -35,7 +32,6 @@ const {
   description={description && smartquotes(description)}
   ogImage={ogImage}
   ogAlt={ogAlt}
-  color={color}
 >
   <article
     class="article-grid"
