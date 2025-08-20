@@ -58,6 +58,10 @@ const {
 </BaseLayout>
 
 <style lang="scss" is:global>
+  article {
+    max-width: 1200px;
+  }
+
   .article-grid {
     display: grid;
     grid-auto-rows: minmax(min-content, max-content);
@@ -68,19 +72,14 @@ const {
       "toc"
       "prose"
       "bios";
+
     @media (width >= 900px) {
-      grid-template-columns: 3fr 1fr;
+      grid-template-columns: 720px 1fr;
+      column-gap: var(--space-2xl);
       grid-template-areas:
-        "head head"
+        "head ."
         "prose toc"
         "bios .";
-
-      .toc {
-        position: sticky;
-        top: var(--space-xl);
-        right: 0;
-        max-height: fit-content;
-      }
     }
 
     .bios {
@@ -93,16 +92,29 @@ const {
 
     .toc {
       grid-area: toc;
+
+      @media (width >= 900px) {
+        position: sticky;
+        top: 0;
+        align-self: start;
+        max-height: 100vh;
+        overflow-y: auto;
+        padding-left: var(--space-xl);
+        margin-top: calc(-1 * var(--toc-offset, 0px));
+      }
     }
 
     .page-head {
       grid-area: head;
+
+      @media (width >= 900px) {
+        --header-height: auto;
+      }
     }
   }
 
   .prose:not(.not-content) {
     max-width: 720px;
-    margin-inline-end: auto;
     grid-area: prose;
 
     [id] {
