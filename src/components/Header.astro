@@ -5,8 +5,9 @@
 <header>
   <a href="/" aria-label="LandmarkIRL homepage" id="logo">LandmarkIRL</a>
   <nav>
-    <a href="/tags">Tags</a>
-    <a href="/blog" class="outline">Blog</a>
+    <a href="/tags">TAGS</a>
+    <a href="/colophon">COLOPHON</a>
+    <a href="/rss.xml">RSS</a>
   </nav>
 </header>
 
@@ -15,7 +16,7 @@
 
   logo?.addEventListener("contextmenu", (event) => {
     event.preventDefault();
-    window.location.href = "/brand-assets";
+    window.location.href = "https://davidumoru.me/";
   });
 </script>
 
@@ -24,31 +25,46 @@
     top: 0;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
     padding: var(--space-l);
     width: 100%;
     margin-inline: auto;
+    flex-wrap: wrap;
+    gap: var(--space-s);
+    min-height: 60px;
   }
 
-  a {
+  #logo {
     padding: var(--space-xs) var(--space-s);
     margin: calc(var(--space-xs) * -1);
-    font-size: var(--step--2);
-    font-weight: 600;
+    font-size: var(--step-1);
+    font-weight: 800;
     text-decoration: none;
+    color: var(--text);
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   nav {
     display: flex;
-    gap: var(--space-l);
-    margin-inline-start: auto;
+    gap: var(--space-s);
+    align-items: center;
 
     a {
-      --nav-border: transparent;
+      padding: var(--space-xs) var(--space-s);
+      margin: calc(var(--space-xs) * -1);
+      font-size: var(--step--2);
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--text);
       border: 3px solid var(--nav-border);
       border-radius: 3px;
       display: inline-flex;
       gap: var(--space-xs);
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+      --nav-border: transparent;
 
       &.outline {
         --nav-border: var(--text);
@@ -59,6 +75,21 @@
           background-color: var(--text);
           color: var(--bg);
         }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    header {
+      padding: var(--space-l) var(--space-s);
+    }
+
+    nav {
+      gap: var(--space-xs);
+
+      a {
+        padding: var(--space-xs) var(--space-s);
+        font-size: var(--step--2);
       }
     }
   }
