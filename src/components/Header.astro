@@ -1,5 +1,5 @@
 ---
-
+import { RiMenu2Fill, RiCloseFill } from "react-icons/ri";
 ---
 
 <header>
@@ -9,40 +9,68 @@
     <a href="/colophon">COLOPHON</a>
     <a href="/rss.xml">RSS</a>
   </nav>
+  <button id="menu-toggle" aria-label="Toggle menu">
+    <RiMenu2Fill />
+  </button>
 </header>
+
+<div id="mobile-nav" class="mobile-nav">
+  <button id="close-menu" aria-label="Close menu">
+    <RiCloseFill />
+  </button>
+  <a href="/tags">TAGS</a>
+  <a href="/colophon">COLOPHON</a>
+  <a href="/rss.xml">RSS</a>
+</div>
 
 <script>
   const logo = document.querySelector("#logo");
+  const menuToggle = document.querySelector("#menu-toggle");
+  const mobileNav = document.querySelector("#mobile-nav");
+  const closeMenu = document.querySelector("#close-menu");
 
   logo?.addEventListener("contextmenu", (event) => {
     event.preventDefault();
     window.location.href = "https://davidumoru.me/";
   });
+
+  const toggleMenu = () => {
+    const isOpen = mobileNav?.classList.contains("open");
+    if (isOpen) {
+      mobileNav?.classList.remove("open");
+    } else {
+      mobileNav?.classList.add("open");
+    }
+  };
+
+  menuToggle?.addEventListener("click", toggleMenu);
+  closeMenu?.addEventListener("click", toggleMenu);
+
+  document.addEventListener("click", (event) => {
+    if (
+      !menuToggle?.contains(event.target as Node) &&
+      !mobileNav?.contains(event.target as Node)
+    ) {
+      mobileNav?.classList.remove("open");
+    }
+  });
 </script>
 
 <style lang="scss">
   header {
-    top: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: var(--space-l);
+    padding: var(--space-l) var(--space-xl);
     width: 100%;
-    margin-inline: auto;
-    flex-wrap: wrap;
-    gap: var(--space-s);
-    min-height: 60px;
+    position: relative;
   }
 
   #logo {
-    padding: var(--space-xs) var(--space-s);
-    margin: calc(var(--space-xs) * -1);
     font-size: var(--step-1);
     font-weight: 800;
     text-decoration: none;
     color: var(--text);
-    white-space: nowrap;
-    flex-shrink: 0;
   }
 
   nav {
@@ -51,24 +79,14 @@
     align-items: center;
 
     a {
-      padding: var(--space-xs) var(--space-s);
-      margin: calc(var(--space-xs) * -1);
       font-size: var(--step--2);
       font-weight: 600;
       text-decoration: none;
       color: var(--text);
-      border: 3px solid var(--nav-border);
+      border: 3px solid transparent;
       border-radius: 3px;
-      display: inline-flex;
-      gap: var(--space-xs);
-      white-space: nowrap;
-      flex-shrink: 0;
+      padding: var(--space-xs) var(--space-s);
       transition: all 0.2s ease;
-      --nav-border: transparent;
-
-      &.outline {
-        --nav-border: var(--text);
-      }
 
       @media (hover: hover) {
         &:hover {
@@ -79,18 +97,74 @@
     }
   }
 
-  @media (max-width: 768px) {
-    header {
-      padding: var(--space-l) var(--space-s);
+  #menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--space-xs);
+    color: var(--text);
+    font-size: var(--step-1);
+  }
+
+  .mobile-nav {
+    position: fixed;
+    top: -300px;
+    left: 0;
+    width: 100%;
+    background-color: var(--bg);
+    border-bottom: 2px solid var(--text);
+    padding: var(--space-xl);
+    padding-top: var(--space-l);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-xs);
+    transition: top 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+    &.open {
+      top: 0;
     }
 
-    nav {
-      gap: var(--space-xs);
+    #close-menu {
+      position: absolute;
+      top: var(--space-l);
+      right: var(--space-xl);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text);
+      font-size: var(--step-2);
+      padding: var(--space-xs);
+    }
 
-      a {
-        padding: var(--space-xs) var(--space-s);
-        font-size: var(--step--2);
+    a {
+      font-size: var(--step-1);
+      font-weight: 800;
+      text-decoration: none;
+      color: var(--text);
+
+      border: 2px solid transparent;
+      border-radius: var(--space-xs);
+      transition: all 0.2s ease;
+
+      &:hover {
+        border-color: var(--text);
+        background-color: var(--text);
+        color: var(--bg);
       }
+    }
+  }
+
+  @media (max-width: 768px) {
+    nav {
+      display: none;
+    }
+
+    #menu-toggle {
+      display: block;
     }
   }
 </style>
