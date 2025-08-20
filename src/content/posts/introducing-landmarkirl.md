@@ -27,4 +27,4 @@ I’m doing this because I think we underestimate how much we can learn from eac
 
 * **Read and share** what resonates.
 * **Send in names**, yours or others. If you or someone you know is building something meaningful, I want to hear about it.
-* **Reach out** if you want to talk or collaborate. My site’s [davidumoru.me](https://davidumoru.me). I’ll take it from there.
+* **Reach out** through [davidumou.me](https://davidumoru.me/)
