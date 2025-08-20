@@ -93,7 +93,8 @@ const posts = await getCollection("posts");
     transition: opacity 0.3s ease-in-out;
   }
 
-  .home:hover .item:not(:hover) {
+  .item:hover ~ .item,
+  .item:has(~ .item:hover) {
     opacity: 0.4;
   }
 
