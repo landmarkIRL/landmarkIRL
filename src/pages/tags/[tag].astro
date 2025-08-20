@@ -2,7 +2,6 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageHeader from "../../components/PageHeader.astro";
-import ArticleLink from "../../components/ArticleLink.astro";
 
 export async function getStaticPaths() {
   const allPosts = await getCollection("posts");
@@ -31,7 +30,11 @@ const sortedPosts = posts.sort(
 );
 ---
 
-<BaseLayout title={`Tagged: ${tag}`} description={`Posts tagged with ${tag}`} color="blue">
+<BaseLayout
+  title={`Tagged: ${tag}`}
+  description={`Posts tagged with ${tag}`}
+  color="blue"
+>
   <PageHeader
     title={`Tagged: "${tag}"`}
     description={`Found ${posts.length} post${posts.length === 1 ? "" : "s"} tagged with "${tag}".`}
@@ -47,15 +50,7 @@ const sortedPosts = posts.sort(
               }
             : undefined;
 
-          return (
-            <ArticleLink
-              title={post.data.title}
-              date={post.data.publishDate}
-              url={`/blog/${post.id}`}
-              description={post.data.description}
-              image={imageProp}
-            />
-          );
+          return <div />;
         })
       ) : (
         <p>No posts found with this tag.</p>
